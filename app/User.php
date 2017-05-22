@@ -23,4 +23,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    
+    /**
+     * Get the characters for a user
+     */
+    public function characters()
+    {
+        return $this->hasMany('App\Character');
+    }    
+    
+    
+    
 }

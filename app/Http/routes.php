@@ -18,3 +18,47 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/characters', 'CharacterController@index');
+Route::get('/character/{character_id}', 'CharacterController@edit');
+
+
+
+
+
+
+
+
+
+
+//ajax crud
+Route::get('/characters/{character_id?}',function($character_id){
+    $character = App\Character::find($character_id);
+
+    return Response::json($character);
+});
+
+Route::post('/characters',function(Illuminate\Http\Request $request){
+    $character = new App\Character;
+    $character->name = $request->name;
+    $character->description = $request->description;
+    $character->user_id = $request->user_id;
+    $character->save();            
+    return Response::json($character);
+});
+
+Route::put('/characters/{character_id?}',function(Illuminate\Http\Request $request,$character_id){
+    $character = App\Character::find($character_id);
+    $character->name = $request->name;
+    $character->description = $request->description;
+
+    $character->save();
+
+    return Response::json($character);
+});
+
+Route::delete('/characters/{character_id?}',function($character_id){
+    $character = App\Character::destroy($character_id);
+
+    return Response::json($character);
+});
+
